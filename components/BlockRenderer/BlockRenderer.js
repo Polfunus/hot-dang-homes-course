@@ -7,8 +7,8 @@ export const BlockRenderer = ({ blocks }) => {
         switch (block.name) {
             case 'core/heading': {
                 return (
-                    <Heading
-                        key={block.id}
+                    < Heading
+                        key={block}
                         content={block.attributes.content}
                         level={block.attributes.level}
                         textAlign={block.attributes.textAlign}
