@@ -6,6 +6,6 @@
 
 @layer compontents {
     .btn {
-        @apply bg-pink-600 hover:bg-pink-700 inline-block my-2 rounded-lg px-4 py-2 uppercase font-bold;
+        @apply bg-pink-600 hover:bg-pink-700 inline-block my-2 rounded-lg px-4 py-2 uppercase font-bold text-white;
     }
 }

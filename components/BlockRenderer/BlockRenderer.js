@@ -1,6 +1,11 @@
 import { Cover } from 'components/Cover';
 import { Heading } from 'components/Heading';
 import { Paragraph } from 'components/Paragraph';
+import { CallToActionButton } from 'components/CallToActionButton';
+import { Columns } from 'components/Columns';
+import { Column } from 'components/Column';
+
+import Image from "next/image";
 
 export const BlockRenderer = ({ blocks }) => {
     return blocks.map(block => {
@@ -8,7 +13,7 @@ export const BlockRenderer = ({ blocks }) => {
             case 'core/heading': {
                 return (
                     < Heading
-                        key={block}
+                        key={block.id}
                         content={block.attributes.content}
                         level={block.attributes.level}
                         textAlign={block.attributes.textAlign}
@@ -35,7 +40,52 @@ export const BlockRenderer = ({ blocks }) => {
                     />
                 );
             }
+            case 'acf/ctabutton': {
+                return (
+                    <CallToActionButton
+                        key={block.id}
+                        buttonLabel={block.attributes.data.label}
+                        align={block.attributes.data.align}
+                        destination={block.attributes.data.destination || '/'}
+                    />
+                );
+            }
+            case 'core/columns': {
+                return (
+                    <Columns
+                        key={block.id}
+                        stackOnMobile={block.attributes.isStackedOnMobile}
+                    >
+                        <BlockRenderer blocks={block.innerBlocks} />
+                    </Columns>
+                );
+            }
+            case 'core/column': {
+                return (
+                    <Column key={block.id} width={block.attributes.width}>
+                        <BlockRenderer blocks={block.innerBlocks} />
+                    </Column>
+                );
+            }
+            case 'core/image': {
+                return (
+                    <Image
+                        key={block.id}
+                        src={block.attributes.url}
+                        alt={block.attributes.alt || 'Image'}
+                        width={block.attributes.width}
+                        height={block.attributes.height}
+                    />
+                );
+            }
+            case 'core/group':
+            case 'core/block': {
+                return (
+                    <BlockRenderer blocks={block.innerBlocks} />
+                );
+            }
             default: {
+                console.log("UNKOWN BLOCK TYPE: ", block)
                 return null;
             }
         }

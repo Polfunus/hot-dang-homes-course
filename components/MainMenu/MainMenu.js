@@ -7,10 +7,12 @@ export const MainMenu = ({ items, callToAction }) => {
 
     return (
         <div className="bg-slate-800 text-white px-5 h-[64px] flex items-center justify-between sticky top-0 z-20">
-            <div className="py-4 pl-5 text-pink-600 flex gap-1">
-                <FaHouseUser size={30} />
-                <FaHeart size={30} />
-            </div>
+            <Link href='/'>
+                <div className="py-4 pl-5 text-pink-600 flex gap-1 cursor-pointer">
+                    <FaHouseUser size={30} />
+                    <FaHeart size={30} />
+                </div>
+            </Link>
             <div className="flex flex-1 justify-end">
                 {(items || []).map(item => {
                     return (
@@ -37,13 +39,12 @@ export const MainMenu = ({ items, callToAction }) => {
                             )
                             }
                         </div>
-
                     )
                 })}
                 <div className='ml-3 my-auto'>
                     <ButtonLink label={callToAction.label} destination={callToAction.destination.uri} />
                 </div>
             </div> {/* endof main menu items */}
-        </div> /*  endof main menu */
+        </div > /*  endof main menu */
     )
 }   

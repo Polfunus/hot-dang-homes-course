@@ -9,7 +9,7 @@ export const cleanAndTransformBlocks = (blocksJSON) => {
             block.id = uuid();
 
             //if block has inner blocks, assing id to them
-            if (block.innerBlocks?.lenght) {
+            if (block.innerBlocks?.length) {
                 assingIdToBlocks(block.innerBlocks);
             }
         });
