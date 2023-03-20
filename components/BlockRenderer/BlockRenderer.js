@@ -21,6 +21,7 @@ export const BlockRenderer = ({ blocks }) => {
                 );
             }
             case 'core/cover': {
+
                 return (
                     <Cover
                         key={block.id}
@@ -81,7 +82,10 @@ export const BlockRenderer = ({ blocks }) => {
             case 'core/group':
             case 'core/block': {
                 return (
-                    <BlockRenderer blocks={block.innerBlocks} />
+                    <BlockRenderer
+                        key={block.id}
+                        blocks={block.innerBlocks}
+                    />
                 );
             }
             default: {

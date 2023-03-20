@@ -6,17 +6,22 @@ import { mapMainMenuItems } from './mapMainMenuItems';
 
 export const getPageStaticProps = async (context) => {
 
-    const uri = context.params?.slug ? `/${context.params.slug.join('/')}` : '/';
+  const uri = context.params?.slug ? `/${context.params.slug.join('/')}` : '/';
 
 
-    const { data } = await client.query({
-        query: gql`
+  const { data } = await client.query({
+    query: gql`
         query PageQuery($uri: String!) {
           nodeByUri(uri: $uri) {
               ... on Page {
                   id
                   title
                   blocksJSON
+            }
+            ... on Property {
+                id
+                title
+                blocksJSON
             }
           }
           
@@ -52,23 +57,23 @@ export const getPageStaticProps = async (context) => {
           }
         }
     `,
-        variables: {
-            uri,
-        }
-    })
+    variables: {
+      uri,
+    }
+  })
 
-    const blocks = cleanAndTransformBlocks(data.nodeByUri.blocksJSON);
-    const mainMenuItems = mapMainMenuItems(data.acfOptionsMainMenu.mainMenu.menuItems);
-    const callToAction = data.acfOptionsMainMenu.mainMenu.callToActionButton;
-    const title = data.nodeByUri.title;
+  const blocks = cleanAndTransformBlocks(data.nodeByUri.blocksJSON);
+  const mainMenuItems = mapMainMenuItems(data.acfOptionsMainMenu.mainMenu.menuItems);
+  const callToAction = data.acfOptionsMainMenu.mainMenu.callToActionButton;
+  const title = data.nodeByUri.title;
 
 
-    return {
-        props: {
-            blocks,
-            mainMenuItems,
-            callToAction,
-            title
-        },
-    };
+  return {
+    props: {
+      blocks,
+      mainMenuItems,
+      callToAction,
+      title
+    },
+  };
 };

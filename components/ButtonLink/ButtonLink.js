@@ -3,9 +3,9 @@ import Link from 'next/link';
 export const ButtonLink = ({ label, destination, className }) => {
     return (
         <Link href={destination} className="w-full h-full">
-            <a className="btn text-white">
+            <div className="btn text-white">
                 {label}
-            </a>
+            </div>
         </Link>
     );
 }
